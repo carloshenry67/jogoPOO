@@ -1,15 +1,12 @@
 public abstract class Personagem implements Atacavel {
-    //encapsulamento
     private String nome;
     private int vida;
 
-    //construtor
     public Personagem(String nome, int vida) {
         this.nome = nome;
         this.vida = vida;
     }
 
-    //getter
     public String getNome() {
         return nome;
     }
@@ -36,10 +33,8 @@ public abstract class Personagem implements Atacavel {
         }
     }
 
-    // MÉTODO ABSTRATO: sem corpo. Cada filho é obrigado a escrever o seu.
     public abstract int calcularDano();
 
-    // Todo personagem ataca do mesmo jeito: calcula o dano e tira vida do alvo.
     @Override
     public void atacar(Personagem alvo) {
         int dano = calcularDano();

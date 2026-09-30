@@ -1,4 +1,3 @@
-// Um equipamento do Batman (ex: Batarangue). Dá um bônus de dano.
 public class Gadget {
     private String nome;
     private int bonus;
