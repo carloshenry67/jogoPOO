@@ -1,13 +1,51 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 void main() {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    IO.println(String.format("Hello and welcome!"));
 
-    for (int i = 1; i <= 5; i++) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        IO.println("i = " + i);
+        // Criamos os objetos do jogo
+        Batman batman = new Batman(new Gadget("Batarangue", 5));
+
+        // POLIMORFISMO: a lista é de Personagem, mas guarda vilões diferentes
+        Personagem[] viloes = { new Pinguim(), new Coringa() };
+
+        // Uma luta para cada vilão (cada luta é uma "fase")
+        for (Personagem vilao : viloes) {
+            IO.println("\n=== Batman vs " + vilao.getNome() + " ===");
+
+            // A luta continua enquanto os dois estiverem vivos
+            while (batman.estaVivo() && vilao.estaVivo()) {
+
+                IO.println("\nBatman: " + batman.getVida() + " de vida");
+                IO.println(vilao.getNome() + ": " + vilao.getVida() + " de vida");
+                IO.println("1 - Atacar");
+                IO.println("2 - Curar (" + batman.getCuras() + " restantes)");
+
+                // IO.readln mostra a pergunta e espera o jogador digitar
+                String opcao = IO.readln("Escolha: ");
+
+                // Vez do jogador
+                if (opcao.equals("1")) {
+                    batman.atacar(vilao);
+                } else if (opcao.equals("2") && batman.getCuras() > 0) {
+                    batman.usarCura();
+                } else {
+                    IO.println("Opção inválida!");
+                    continue; // volta ao começo sem o vilão atacar
+                }
+
+                // Vez do vilão (só ataca se ainda estiver vivo)
+                if (vilao.estaVivo()) {
+                    vilao.atacar(batman);
+                }
+            }
+
+            // Fim da luta: quem ganhou?
+            if (batman.estaVivo()) {
+                batman.ganharPontos(100);
+                IO.println(vilao.getNome() + " foi derrotado! Pontos: " + batman.getPontos());
+            } else {
+                IO.println("Batman perdeu... Gotham está perdida!");
+                return; // termina o jogo
+            }
+        }
+
+        IO.println("\nGotham está salva! Pontuação final: " + batman.getPontos());
     }
-}
