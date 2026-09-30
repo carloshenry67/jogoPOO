@@ -5,7 +5,7 @@ public class Batman extends Personagem {
     private int pontos = 0;
 
     public Batman(Gadget gadget) {
-        super("Batman", 100); // chama o construtor do Personagem
+        super("Batman", 100);
         this.gadget = gadget;
     }
 
